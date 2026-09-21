@@ -6,6 +6,6 @@
 
 CableVLA is a multimodal vision–language–action framework for robotic cable routing. It learns global cable-topology and local tactile representations from simulation-privileged supervision, combining visual context with contact feedback to guide cable manipulation.
 
-TacSense, its tactile encoder, captures both whole-field temporal changes and taxel-local dynamics to represent contact, loading, and slip.
-
-**This public release is limited to TacSense.** This repository currently provides a project introduction; code and pretrained weights are not yet included.
+- **CableVLA** combines topology-conditioned action generation with contact-gated force–tactile refinement for robotic cable routing.
+- **TopoHead** learns temporal cable-topology representations through privileged physical supervision and teacher–student distillation, providing global context from visual observations.
+- **TacSense** captures whole-field temporal changes and taxel-local dynamics with a dual-branch tactile encoder, learning representations of contact, loading, and slip.
