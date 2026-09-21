@@ -2,7 +2,7 @@
 
 **Simulation-Privileged Global–Local Representation Learning for Cable Routing**
 
-[中文版](docs/README_zh.md)
+[Project Website](https://flyingteng.github.io/CableVLA/) | [中文版](docs/README_zh.md)
 
 CableVLA is a multimodal vision–language–action framework for robotic cable routing. It learns global cable-topology and local tactile representations from simulation-privileged supervision, combining visual context with contact feedback to guide cable manipulation.
 

@@ -2,7 +2,7 @@
 
 **面向线缆布线的仿真特权监督全局–局部表征学习**
 
-[English](../README.md)
+[项目网站](https://flyingteng.github.io/CableVLA/) | [English](../README.md)
 
 CableVLA 是面向机器人线缆布线的多模态视觉–语言–动作框架。它利用仿真特权监督学习全局线缆拓扑与局部触觉表征，结合视觉上下文和接触反馈，引导机器人完成线缆操作。
 
