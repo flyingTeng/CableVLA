@@ -1,0 +1,6 @@
+# Manuscripts are maintained separately.
+/assets/papers/
+
+# Local website maintenance notes.
+/docs/website_guide_zh.md
+/videos/README.md

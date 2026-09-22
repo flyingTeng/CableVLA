@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1746bc">
+  <title>CableVLA — Global topology. Local contact.</title>
+  <meta name="description" content="CableVLA learns global cable-topology and local tactile representations from simulation-privileged supervision for closed-loop robotic cable routing.">
+  <meta property="og:title" content="CableVLA: Simulation-Privileged Global–Local Representation Learning for Cable Routing">
+  <meta property="og:description" content="Global cable topology and local contact dynamics in a unified vision–language–action policy. Explore the paper, method, and real-robot demonstration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flyingteng.github.io/CableVLA/">
+  <link rel="canonical" href="https://flyingteng.github.io/CableVLA/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="wordmark" href="#top" aria-label="CableVLA home">Cable<span>VLA</span><span class="wordmark-dot" aria-hidden="true"></span></a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#mujoco">Evaluation</a>
+        <a href="#topohead">TopoHead</a>
+        <a href="#tacsense">TacSense</a>
+        <a href="#transfer">Transfer</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="top" aria-labelledby="paper-title">
+      <h1 id="paper-title" class="title-row"><span class="title-wordmark">CableVLA:</span> <span class="paper-title">Simulation-Privileged Global–Local Representation Learning for Cable Routing</span></h1>
+      <div class="authors" aria-label="Authors">
+        <span>Zhifei Teng<sup>1,*</sup></span><span>Bo Feng<sup>1,*</sup></span><span>Xiang Zou<sup>2</sup></span><span>Jinpeng Xiao<sup>1</sup></span><span>Min Li<sup>1</sup></span><span>Zhouping Yin<sup>1</sup></span><span>Yiqun Li<sup>1,†</sup></span>
+      </div>
+      <div class="affiliations">
+        <p><sup>1</sup> Huazhong University of Science and Technology &nbsp; <sup>2</sup> Harbin Institute of Technology</p>
+        <p class="author-notes">* Equal contribution &nbsp; · &nbsp; † Corresponding author</p>
+        <details class="affiliation-details">
+          <summary>Full affiliations</summary>
+          <p><sup>1</sup> State Key Laboratory of Intelligent Manufacturing Equipment and Technology, School of Mechanical Science and Engineering, Huazhong University of Science and Technology, Wuhan, China.</p>
+          <p><sup>2</sup> School of Mathematics, Harbin Institute of Technology, Harbin, China.</p>
+        </details>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/flyingTeng/CableVLA"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>GitHub <span aria-hidden="true">↗</span></a>
+        <span class="button button-unavailable" aria-disabled="true">arXiv <span class="availability">Coming soon</span></span>
+      </div>
+    </section>
+
+    <section class="container overview" id="overview" aria-label="CableVLA overview">
+      <figure class="paper-figure overview-figure">
+        <a href="assets/images/overview.svg" target="_blank" rel="noopener" aria-label="Open Fig. 1 at full resolution"><img src="assets/images/overview.svg" width="2000" height="1125" alt="CableVLA framework showing simulation-supervised topology and tactile representations, topology-conditioned action generation, and contact-gated action refinement." fetchpriority="high" decoding="async"></a>
+        <figcaption><span class="figure-label">Fig. 1 / CableVLA overview</span> Global topology conditions action generation; local force–tactile feedback refines the next 8 arm-and-gripper actions. <a href="assets/images/overview.svg" target="_blank" rel="noopener">View full size ↗</a></figcaption>
+      </figure>
+      <div class="media-grid media-grid-three domain-videos">
+        <figure class="media-card"><h3>MuJoCo</h3><video controls playsinline muted loop data-autoplay="overview" preload="none" width="1920" height="1080" poster="assets/images/overview-mujoco.jpg" data-media-slot="overview-mujoco" aria-label="MuJoCo cable-routing rollout shown from a global presentation view."><source src="videos/overview-mujoco.mp4" type="video/mp4"><a href="videos/overview-mujoco.mp4">Watch the video</a>.</video><figcaption>Simulation-trained cable routing.</figcaption></figure>
+        <figure class="media-card"><h3>Sim2Sim</h3><video controls playsinline muted loop data-autoplay="overview" preload="none" width="1920" height="1440" poster="assets/images/overview-sim2sim.jpg" data-media-slot="overview-sim2sim" aria-label="Cable routing transferred from MuJoCo to Isaac Sim, shown from a global view."><source src="videos/overview-sim2sim.mp4" type="video/mp4"><a href="videos/overview-sim2sim.mp4">Watch the video</a>.</video><figcaption>Transfer from MuJoCo to Isaac Sim.</figcaption></figure>
+        <figure class="media-card"><h3>Sim2Real</h3><video controls playsinline muted loop data-autoplay="overview" preload="none" width="600" height="336" poster="assets/images/overview-sim2real.jpg" data-media-slot="overview-sim2real" aria-label="Real-robot cable routing from the external camera view, shown at 10-times speed."><source src="videos/overview-sim2real.mp4" type="video/mp4"><a href="videos/overview-sim2real.mp4">Watch the video</a>.</video><figcaption>Execution on the physical robot · 10× playback.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="results-section" id="mujoco" aria-labelledby="mujoco-title">
+      <div class="container section compact-section">
+        <div class="section-heading numbered-heading"><p class="section-kicker">01 / Routing performance</p><h2 id="mujoco-title">CableVLA in Evaluation</h2></div>
+        <p class="lead">Across 345 core-suite rollouts per policy, CableVLA reaches 84.9% success, compared with 62.6% for the π<sub>0.5</sub>-V visual baseline.</p>
+        <div class="table-scroll results-table-wrap" tabindex="0" role="region" aria-label="MuJoCo success rates table, scroll horizontally on narrow screens">
+          <table id="mujoco-results" class="routing-table"><caption>Core routing success rates (%) · Table I</caption><thead><tr><th scope="col">Condition</th><th scope="col">Diffusion Policy</th><th scope="col">SmolVLA</th><th scope="col">π<sub>0.5</sub>-V</th><th scope="col">π<sub>0.5</sub>-V+Topo</th><th scope="col" class="method-column">CableVLA</th></tr></thead><tbody>
+            <tr><th scope="row">Training-source replay</th><td>17.3</td><td>9.3</td><td>69.3</td><td>70.7</td><td class="method-column">85.3</td></tr>
+            <tr><th scope="row">IID nominal</th><td>30.7</td><td>10.7</td><td>86.7</td><td>80.0</td><td class="method-column">97.3</td></tr>
+            <tr><th scope="row">OOD nominal</th><td>37.3</td><td>17.3</td><td>66.7</td><td>82.7</td><td class="method-column">89.3</td></tr>
+            <tr><th scope="row">Weak light</th><td>36.7</td><td>3.3</td><td>33.3</td><td>40.0</td><td class="method-column">70.0</td></tr>
+            <tr><th scope="row">Strong light</th><td>0.0</td><td>6.7</td><td>63.3</td><td>56.7</td><td class="method-column">66.7</td></tr>
+            <tr><th scope="row">Routing low friction</th><td>53.3</td><td>23.3</td><td>53.3</td><td>60.0</td><td class="method-column">83.3</td></tr>
+            <tr><th scope="row">Camera-view change</th><td>0.0</td><td>0.0</td><td>13.3</td><td>10.0</td><td class="method-column">76.7</td></tr>
+            <tr class="total-row"><th scope="row">Core total</th><td>26.4</td><td>11.0</td><td>62.6</td><td>65.2</td><td class="method-column">84.9</td></tr>
+          </tbody></table>
+        </div>
+        <p class="table-note">Each fixed policy is evaluated 3 times on the same 115 scenario–condition instances. Replay, IID, and OOD each contribute 75 rollouts; each perturbation contributes 30.</p>
+        <p class="result-summary">Topology conditioning improves OOD success from 66.7% to 82.7%. Force–tactile refinement raises camera-view-change success from 3/30 for the topology-conditioned parent to 23/30 for CableVLA.</p>
+        <div class="media-grid mujoco-video-grid">
+          <figure class="media-card"><h4>Weak light</h4><video controls playsinline preload="none" width="1920" height="1080" poster="assets/images/mujoco-weak-light.jpg" data-media-slot="mujoco-weak-light" aria-label="Cable routing under weak light, with three synchronized views and bilateral tactile maps."><source src="videos/mujoco-weak-light.mp4" type="video/mp4"><a href="videos/mujoco-weak-light.mp4">Watch the video</a>.</video></figure>
+          <figure class="media-card"><h4>View change</h4><video controls playsinline preload="none" width="1920" height="1080" poster="assets/images/mujoco-view-change.jpg" data-media-slot="mujoco-view-change" aria-label="Cable routing with changed camera views, with three synchronized views and bilateral tactile maps."><source src="videos/mujoco-view-change.mp4" type="video/mp4"><a href="videos/mujoco-view-change.mp4">Watch the video</a>.</video></figure>
+          <figure class="media-card"><h4>Backtracking</h4><video controls playsinline preload="none" width="1920" height="1080" poster="assets/images/mujoco-backtracking.jpg" data-media-slot="mujoco-backtracking" aria-label="Cable routing in an OOD backtracking layout with camera-view perturbation, shown with synchronized tactile maps."><source src="videos/mujoco-backtracking.mp4" type="video/mp4"><a href="videos/mujoco-backtracking.mp4">Watch the video</a>.</video><figcaption>With view change</figcaption></figure>
+          <figure class="media-card"><h4>Curvature</h4><video controls playsinline preload="none" width="1920" height="1080" poster="assets/images/mujoco-curvature.jpg" data-media-slot="mujoco-curvature" aria-label="Cable routing in a high-curvature OOD layout, with three synchronized views and bilateral tactile maps."><source src="videos/mujoco-curvature.mp4" type="video/mp4"><a href="videos/mujoco-curvature.mp4">Watch the video</a>.</video></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container compact-section" id="topohead" aria-labelledby="topohead-title">
+      <div class="section-heading numbered-heading"><p class="section-kicker">02 / Global cable topology</p><h2 id="topohead-title">TopoHead</h2></div>
+      <figure class="paper-figure topology-overview-figure"><a aria-label="Open Fig. 2 at full resolution" href="assets/images/topohead.svg" rel="noopener" target="_blank"><img alt="TopoHead privileged temporal teacher and RGB-only student, connected by selective output and latent distillation." decoding="async" height="638" loading="lazy" src="assets/images/topohead.svg" width="2000"/></a><figcaption><span class="figure-label">Fig. 2 / TopoHead</span></figcaption></figure>
+      <div class="topology-collection-block" aria-labelledby="topology-collection-title">
+        <div class="section-subheading"><h3 id="topology-collection-title">Collecting dynamic cable configurations</h3></div>
+        <div class="media-pair topology-collection-grid">
+<figure class="media-card"><h4>P1 relation establishment</h4><video aria-label="Cable motion establishing the P1 routing relation, with synchronized simulation ground-truth labels." controls="" data-media-slot="topohead-p1-collection" height="1088" playsinline="" poster="assets/images/topohead-p1-collection.jpg" preload="metadata" width="2400"><source src="videos/topohead-p1-collection.mp4" type="video/mp4"/><a href="videos/topohead-p1-collection.mp4">Watch the video</a>.</video><figcaption>Simulation ground truth · Post P1</figcaption></figure>
+<figure class="media-card"><h4>P2 relation establishment</h4><video aria-label="Cable motion establishing the P2 routing relation, with synchronized simulation ground-truth labels." controls="" data-media-slot="topohead-p2-collection" height="1088" playsinline="" poster="assets/images/topohead-p2-collection.jpg" preload="metadata" width="2400"><source src="videos/topohead-p2-collection.mp4" type="video/mp4"/><a href="videos/topohead-p2-collection.mp4">Watch the video</a>.</video><figcaption>Simulation ground truth · Post P2</figcaption></figure>
+</div>
+      </div>
+      <div class="media-pair topology-supervision-block" aria-labelledby="topology-supervision-title">
+        <div class="section-subheading topology-summary-copy">
+          <h3 id="topology-supervision-title">Learning topology from simulation</h3>
+          <p><strong>Encoding.</strong> TopoHead combines current and future prediction with teacher–student distillation. Its frozen RGB-only student encodes 4 frames spanning 0.3 s into a 64-dimensional representation that conditions the action expert.</p>
+          <p><strong>Data collection.</strong> Collection emphasizes grasping and cable motion. The two videos above show P1 and P2 relation establishment, with synchronized observations and simulation ground-truth labels.</p>
+          <p><strong>Topology and privilege.</strong> The animation illustrates centerline shape, cable–post relations and distances, lift state, and contact state. Segment-level poses, forces, and moments provide privileged information for training the temporal teacher.</p>
+        </div>
+        <figure class="media-card"><video aria-label="Schematic animation of the segmented cable model, cable-post topology, and privileged node-level physical signals." controls="" data-media-slot="topology-explainer" height="1080" playsinline="" poster="assets/images/topology-explainer.jpg" preload="metadata" width="1920"><source src="videos/topology-explainer.mp4" type="video/mp4"/><a href="videos/topology-explainer.mp4">Watch the video</a>.</video></figure>
+      </div>
+    </section>
+
+    <section class="tacsense-section" id="tacsense" aria-labelledby="tacsense-title">
+      <div class="container section compact-section">
+        <div class="section-heading numbered-heading"><p class="section-kicker">03 / Local contact dynamics</p><h2 id="tacsense-title">TacSense</h2></div>
+        <p class="lead">TacSense learns whole-field and taxel-local contact dynamics from resistive tactile histories, using simulated contact kinematics and event timing as supervision.</p>
+        <div class="media-pair tactile-method-pair">
+          <figure class="paper-figure"><a href="assets/images/tacsense.svg" target="_blank" rel="noopener" aria-label="Open Fig. 3 at full resolution"><img src="assets/images/tacsense.svg" width="2000" height="1125" alt="TacSense tactile simulation and dual-branch encoder with whole-frame temporal processing, per-taxel dynamics, and training supervision." loading="lazy" decoding="async"></a><figcaption><span class="figure-label">Fig. 3 / TacSense</span> Complementary frame and taxel branches encode 25 frames from 96 taxels into a 128-dimensional representation. Physical and event supervision supports 57 tasks across 6 capability families.</figcaption></figure>
+          <figure class="media-card"><video controls playsinline loop preload="metadata" width="1920" height="1080" poster="assets/images/tactile-simulation.jpg" data-media-slot="tactile-spheres-animation" data-media-kind="animation" aria-label="Tactile simulation showing contact-element motion and sensor response."><source src="videos/tactile-simulation.mp4" type="video/mp4"><a href="videos/tactile-simulation.mp4">Watch the tactile simulation video</a>.</video><figcaption>Each taxel sums the front-face normal forces of 4 contact spheres that move independently along the sensor normal.</figcaption></figure>
+        </div>
+        <div class="media-pair tactile-evaluation">
+          <div>
+            <div class="section-subheading"><h3>Recognizing complex contact events</h3><p>TacSense combines a frame branch for whole-array temporal evolution with a taxel branch for per-taxel dynamics followed by spatial interaction. Both TacSense Large and a similarly sized CNN–LSTM detect simple contact nearly perfectly, but TacSense better recognizes slip transitions and retains this advantage under frozen-encoder probes.</p></div>
+            <div class="table-scroll event-table-wrap"><table id="tactile-event-results"><caption>Slip-transition AUPRC · Higher is better</caption><thead><tr><th scope="col">Event</th><th scope="col">CNN–LSTM</th><th scope="col">TacSense Large</th></tr></thead><tbody><tr><th scope="row">Slip onset</th><td>0.1694</td><td class="highlight">0.8028</td></tr><tr><th scope="row">Slip stop</th><td>0.1120</td><td class="highlight">0.3880</td></tr></tbody></table></div>
+          </div>
+          <figure class="paper-figure radar-figure"><a href="assets/images/capabilities.webp" target="_blank" rel="noopener" aria-label="Open Fig. 5 at full resolution"><img src="assets/images/capabilities.webp" width="2000" height="897" alt="Three radar plots compare six tactile capability families under joint training, a frozen linear probe, and a frozen two-layer MLP probe." loading="lazy" decoding="async"></a><figcaption><span class="figure-label">Fig. 5 / Tactile capabilities</span> All 57 tasks are grouped into 6 capability families. Scores are normalized separately for each evaluation protocol. TacSense Large outperforms CNN–LSTM in every capability family under both probe types.</figcaption></figure>
+        </div>
+
+        <div class="section-subheading"><h3>Controlled tactile data collection</h3><p>Probes vary geometry, loading, motion, friction, and compliance. Paired event and control conditions separate contact events from collection-phase cues.</p></div>
+        <div class="media-grid media-grid-three collection-grid">
+          <figure class="media-card"><h4>Normal loading and unloading</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-normal-loading.jpg" data-media-slot="tacsense-normal-loading" aria-label="A cylindrical probe loads and unloads the tactile array, with synchronized force maps."><source src="videos/tacsense-normal-loading.mp4" type="video/mp4"><a href="videos/tacsense-normal-loading.mp4">Watch the normal loading video</a>.</video></figure>
+          <figure class="media-card"><h4>Translation and rotation</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-translation-rotation.jpg" data-media-slot="tacsense-translation-rotation" aria-label="A block translates and rotates across the tactile array, changing its force distribution."><source src="videos/tacsense-translation-rotation.mp4" type="video/mp4"><a href="videos/tacsense-translation-rotation.mp4">Watch the translation and rotation video</a>.</video></figure>
+          <figure class="media-card"><h4>Contact loss and recontact</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-loss-recontact.jpg" data-media-slot="tacsense-loss-recontact" aria-label="A probe loses contact with the tactile array and makes contact again."><source src="videos/tacsense-loss-recontact.mp4" type="video/mp4"><a href="videos/tacsense-loss-recontact.mp4">Watch the contact loss and recontact video</a>.</video></figure>
+          <figure class="media-card"><h4>Partial boundary contact</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-boundary-contact.jpg" data-media-slot="tacsense-boundary-contact" aria-label="A probe partially crosses the sensor boundary, truncating the contact footprint."><source src="videos/tacsense-boundary-contact.mp4" type="video/mp4"><a href="videos/tacsense-boundary-contact.mp4">Watch the boundary contact video</a>.</video></figure>
+          <figure class="media-card"><h4>Partial corner contact</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-corner-contact.jpg" data-media-slot="tacsense-corner-contact" aria-label="A probe makes partial contact at a corner of the tactile array."><source src="videos/tacsense-corner-contact.mp4" type="video/mp4"><a href="videos/tacsense-corner-contact.mp4">Watch the corner contact video</a>.</video></figure>
+          <figure class="media-card"><h4>Dynamic multi-contact</h4><video controls playsinline preload="metadata" width="1920" height="1080" poster="assets/images/tacsense-multi-contact.jpg" data-media-slot="tacsense-multi-contact" aria-label="Multiple contact regions evolve over the tactile array, changing the spatial force map."><source src="videos/tacsense-multi-contact.mp4" type="video/mp4"><a href="videos/tacsense-multi-contact.mp4">Watch the dynamic multi-contact video</a>.</video></figure>
+        </div>
+
+        <div class="section-subheading"><h3>Simulation data collection scenes</h3><p>These scenes use a simulation model of the Universa tactile sensor from Wuhan Huaweike Intelligent Technology Co., Ltd., China.</p></div>
+        <div class="media-grid simulation-scenes">
+          <figure class="media-card"><h4>Factory grasp and insertion</h4><video controls playsinline preload="none" width="3840" height="2160" poster="assets/images/simulation-factory.jpg" data-media-slot="simulation-factory" aria-label="MuJoCo factory scene showing grasping, insertion, and tactile signals, shown at 2-times speed."><source src="videos/simulation-factory.mp4" type="video/mp4"><a href="videos/simulation-factory.mp4">Watch the factory collection scene</a>.</video><figcaption>MuJoCo · 2× playback</figcaption></figure>
+          <figure class="media-card"><h4>Household pick-and-place</h4><video controls playsinline preload="none" width="3840" height="2160" poster="assets/images/simulation-home.jpg" data-media-slot="simulation-home" aria-label="MuJoCo household scene showing apple grasping, placement, and tactile signals, shown at 2-times speed."><source src="videos/simulation-home.mp4" type="video/mp4"><a href="videos/simulation-home.mp4">Watch the household collection scene</a>.</video><figcaption>MuJoCo · 2× playback</figcaption></figure>
+          <figure class="media-card"><h4>Restaurant pick-and-place</h4><video controls playsinline preload="none" width="3840" height="2160" poster="assets/images/simulation-restaurant.jpg" data-media-slot="simulation-restaurant" aria-label="Isaac Sim and Newton restaurant scene showing can grasping, transport, placement, and tactile observations, shown at 4-times speed."><source src="videos/simulation-restaurant.mp4" type="video/mp4"><a href="videos/simulation-restaurant.mp4">Watch the restaurant collection scene</a>.</video><figcaption>Isaac Sim + Newton · 4× playback</figcaption></figure>
+          <figure class="media-card"><h4>Gripper contact</h4><video controls playsinline preload="none" width="3840" height="2160" poster="assets/images/simulation-gripper.jpg" data-media-slot="simulation-gripper" aria-label="Isaac Sim and Newton gripper contact with a small block, shown in 10-times slow motion with tactile signals."><source src="videos/simulation-gripper.mp4" type="video/mp4"><a href="videos/simulation-gripper.mp4">Watch the gripper contact scene</a>.</video><figcaption>Isaac Sim + Newton · 10× slow motion</figcaption></figure>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section container transfer-section" id="transfer" aria-labelledby="transfer-title">
+      <div class="section-heading numbered-heading"><p class="section-kicker">04 / Cross-domain execution</p><h2 id="transfer-title">Sim2Sim &amp; Sim2Real</h2></div>
+      <p class="lead">Each policy retains its MuJoCo-trained weights. Cross-simulator and real-robot comparisons examine transfer under changes in dynamics and sensing, without target-domain policy-weight updates.</p>
+      <div class="transfer-gains" id="transfer-results"><div class="transfer-gain-pair"><span>Sim2Sim <strong>+20 <abbr title="percentage points">pp</abbr></strong></span><span>Sim2Real <strong>+30 <abbr title="percentage points">pp</abbr></strong></span></div><span class="transfer-gain-note">Success-rate gain over π<sub>0.5</sub>-V</span></div>
+      <div class="transfer-videos">
+        <figure class="media-card"><div class="media-heading"><h3>Sim2Sim · Isaac Sim</h3><span>MuJoCo-trained policy · 1× playback</span></div><video controls playsinline preload="none" width="2560" height="1440" poster="assets/images/transfer-sim2sim.jpg" data-media-slot="transfer-sim2sim" aria-label="Sim2Sim"><source src="videos/transfer-sim2sim.mp4" type="video/mp4"><a href="videos/transfer-sim2sim.mp4">Watch the video</a>.</video></figure>
+        <figure class="media-card"><div class="media-heading"><h3>Sim2Real · Real robot</h3><span>MuJoCo-trained policy · 10× playback</span></div><video controls playsinline preload="none" width="1920" height="1080" poster="assets/images/transfer-sim2real.jpg" data-media-slot="transfer-sim2real" aria-label="Real-world cable routing with three camera views and bilateral tactile visualization, shown at 10-times speed."><source src="videos/transfer-sim2real.mp4" type="video/mp4"><a href="videos/transfer-sim2real.mp4">Watch the video</a>.</video></figure>
+      </div>
+    </section>
+
+    <section class="section container citation-section" id="citation" aria-labelledby="citation-title">
+      <div class="section-heading"><p class="section-kicker">Reference</p><h2 id="citation-title">Cite this work</h2></div>
+      <div class="citation-box"><div class="citation-toolbar"><span>BibTeX</span><button id="copy-citation" type="button" hidden>Copy citation</button></div><pre><code id="bibtex">@misc{teng2026cablevla,
+  title = {CableVLA: Simulation-Privileged Global-Local
+           Representation Learning for Cable Routing},
+  author = {Teng, Zhifei and Feng, Bo and Zou, Xiang and
+            Xiao, Jinpeng and Li, Min and Yin, Zhouping and Li, Yiqun},
+  year = {2026},
+  url = {https://flyingteng.github.io/CableVLA/}
+}</code></pre><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p></div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><a class="wordmark" href="#top">Cable<span>VLA</span></a><p>Global topology. Local contact.</p><div><a href="https://github.com/flyingTeng/CableVLA">GitHub</a></div></div></footer>
+</body>
+</html>
